@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Untuk kamu ♥</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#8a4a55;--line:#e07a63;--pink:#f0b6c4;--red:#d9382f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;height:100%;overflow:hidden;font-family:"Pixelify Sans","Courier New",monospace;color:var(--ink);
+background:radial-gradient(80% 60% at 0% 25%,#f9d8e0 0,transparent 65%),#fbf4e6;cursor:crosshair;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9}
+.stage{position:fixed;inset:0;transition:opacity .5s}
+.stage.out{opacity:0;pointer-events:none}
+.env{position:absolute;left:50%;top:15%;width:150px;margin-left:-75px}
+.env svg{width:100%;display:block;overflow:visible}
+.flap{transform-origin:55px 12px;transition:transform .45s}
+.seal{transition:opacity .2s}
+.env.open .flap{transform:scaleY(-1)}
+.env.open .seal{opacity:0}
+.env.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px) rotate(-3deg)}75%{transform:translateX(5px) rotate(3deg)}}
+.from{position:absolute;left:0;right:0;top:calc(15% + 128px);margin:0;text-align:center;font-size:14px;color:#a2525c}
+.from b{color:var(--red);font-weight:400;font-size:11px}
+#bow{position:absolute;left:50%;top:70%;width:100px;height:100px;margin:-50px 0 0 -50px}
+#bow svg{width:100%;height:100%;overflow:visible}
+.hint{position:absolute;left:0;right:0;top:calc(70% + 70px);margin:0;text-align:center;font-size:12px;color:#b98a90}
+.fly{position:fixed;left:0;top:0;width:100px;height:100px;z-index:4;pointer-events:none}
+.win{position:fixed;left:50%;top:50%;width:min(300px,86vw);margin:0;transform:translate(-50%,-50%);z-index:3;
+border:2.5px solid var(--line);border-radius:7px;background:#f6c1d1;box-shadow:0 0 22px 4px rgba(224,122,99,.28);animation:pop .5s cubic-bezier(.2,1.3,.4,1)}
+.win[hidden]{display:none}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-50%) scale(.6)}}
+.bar{display:flex;justify-content:space-between;align-items:center;height:28px;padding:0 8px;background:var(--pink);border-bottom:2px solid var(--line);font-size:13px;font-weight:600;letter-spacing:.06em}
+.wb{display:flex;gap:4px}
+.wb b{width:14px;height:14px;border:1.5px solid #d99a95;background:#f8dfe4;border-radius:2px;font-size:9px;line-height:11px;text-align:center;color:#b5636c;font-weight:400}
+.sub{height:28px;background:#f8e0e7;border-bottom:2px solid var(--line);display:flex;align-items:center;justify-content:center;gap:9px;color:var(--red);font-size:13px}
+.sub em{font-style:normal;font-size:7px;color:#b5636c}
+.body{position:relative;padding:20px 16px 22px;text-align:center;min-height:270px;
+background:conic-gradient(#f5bccd 25%,#f9d5e0 0 50%,#f5bccd 0 75%,#f9d5e0 0) 0 0/18px 18px}
+.t{margin:0 0 12px;font-size:17px;line-height:1.25;font-weight:600}
+.cat{width:104px;margin:0 auto}
+.cat svg{display:block;width:100%}
+.btns{display:flex;justify-content:center;gap:14px;margin-top:20px;min-height:34px}
+.btn{font:inherit;font-size:12px;font-weight:600;letter-spacing:.05em;padding:7px 15px;border:2px solid #e0958a;border-radius:3px;background:#fff5ef;color:var(--ink);cursor:pointer;box-shadow:0 3px 0 #e0958a;transition:transform .25s,background .15s,color .15s}
+#yes:hover,#yes:active{background:var(--red);color:#fff;border-color:#b02820;box-shadow:0 3px 0 #b02820}
+#no.free{position:absolute;transition:left .2s,top .2s}
+.heart-top{color:var(--red);font-size:18px;height:20px;animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.small{margin:12px 0 4px;font-size:13px}
+.sel{display:inline-block;background:#1d5fe0;color:#fff;font-size:13px;padding:0 3px;margin-top:2px}
+.sel+span{color:var(--red)}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+
+<main id="aim" class="stage">
+  <div id="env" class="env">
+    <svg viewBox="0 0 110 86" aria-hidden="true">
+      <rect x="2" y="2" width="106" height="82" rx="9" fill="#fbeee9" stroke="#e07a63" stroke-width="2.4" stroke-dasharray="1.5 3.2" stroke-linecap="round"/>
+      <rect x="13" y="12" width="84" height="62" fill="#f8f0ea" stroke="#e58f80" stroke-width="1.5"/>
+      <path d="M13 74 L55 44 L97 74" fill="none" stroke="#e58f80" stroke-width="1.5"/>
+      <g class="flap"><polygon points="13,12 97,12 55,48" fill="#f4b8c4" stroke="#e58f80" stroke-width="1.5"/></g>
+      <path class="seal" d="M55 43 l-6.5-6.5 a3.6 3.6 0 0 1 6.5-4.3 a3.6 3.6 0 0 1 6.5 4.3z" fill="#d9382f"/>
+    </svg>
+  </div>
+  <p class="from"><b>♥</b> <span id="from"></span> <b>♥</b></p>
+  <div id="bow">
+    <svg viewBox="-50 -50 100 100" aria-hidden="true">
+      <path d="M-40 12 Q0 -34 40 12" fill="none" stroke="#d9952a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M-40 12 L40 12" stroke="#c98a25" stroke-width="1.5"/>
+      <g id="arrS"></g>
+    </svg>
+  </div>
+  <p class="hint">Aim with your mouse, press Space to shoot ♥</p>
+</main>
+
+<section id="win" class="win" hidden aria-live="polite">
+  <div class="bar"><span>LOVE</span><span class="wb"><b>_</b><b>□</b><b>×</b></span></div>
+  <div class="sub">♥ <em>■</em> ♥ <em>■</em> ♥</div>
+  <div class="body" id="body">
+    <p class="t">Do you want to be my girlfriend?♡</p>
+    <div class="cat" id="cat"></div>
+    <div class="btns" id="btns">
+      <button class="btn" id="yes">YES</button>
+      <button class="btn" id="no">NO</button>
+    </div>
+  </div>
+</section>
+
+<script>
+// ====== UBAH DI SINI ======
+const SENDER = "ACEOS";
+// ==========================
+document.getElementById('from').textContent = "From " + SENDER + " For You";
+
+/* pixel cat */
+const pal = {'#':'#1b1b1f',W:'#fff',P:'#f5a6b5',R:'#e0392f'};
+const base = [
+"..##........##..",
+"..###......###..",
+".##############.",
+"################",
+"#WW##########WW#",
+"#PP###PPPP###PP#",
+"################",
+".###" + "#RR##RR#" + "###.",
+".###" + "RRRRRRRR" + "###.",
+".###" + "RRRRRRRR" + "###.",
+".###" + "#RRRRRR#" + "###.",
+"..##" + "##RRRR##" + "##..",
+"...#" + "###RR###" + "#...",
+"....########...."
+];
+function cat(rows){
+  let s='';
+  rows.forEach((r,y)=>[...r].forEach((ch,x)=>{ if(pal[ch]) s+=`<rect x="${x}" y="${y}" width="1.03" height="1.03" fill="${pal[ch]}"/>`; }));
+  return `<svg viewBox="0 0 16 14" shape-rendering="crispEdges">${s}</svg>`;
+}
+const happy = base.slice();
+happy[4] = "##W##########W##";
+happy[5] = "#PWW##PPPP##WWP#";
+document.getElementById('cat').innerHTML = cat(base);
+
+/* arrow */
+const ARROW = `<line x1="0" y1="-34" x2="0" y2="24" stroke="#b8664a" stroke-width="2.6"/>
+<path d="M0 -46 L-5.5 -32 L5.5 -32Z" fill="#d9382f"/>
+<path d="M0 24 l-5 7 M0 24 l5 7 M0 17 l-5 7 M0 17 l5 7" stroke="#d9382f" stroke-width="2" fill="none"/>`;
+const arrS = document.getElementById('arrS'); arrS.innerHTML = ARROW;
+
+/* canvas hearts */
+const cv = document.getElementById('fx'), c = cv.getContext('2d');
+let W,H;
+function size(){const d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0);}
+size(); addEventListener('resize',size);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const bg = Array.from({length:32},()=>({x:rnd(0,1),y:rnd(0,1),s:rnd(5,10),v:rnd(.004,.012),a:rnd(.35,.8),col:Math.random()<.5?'#d9382f':'#e08a9a'}));
+let conf=[];
+const CC=['#e8474c','#f2a13a','#a99cf0','#f7cf4b','#f28aa9','#e8474c'];
+function burst(x,y,n){
+  for(let i=0;i<n;i++){const a=rnd(0,6.283),sp=rnd(150,620);
+    conf.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-140,s:rnd(14,32),r:rnd(0,6),vr:rnd(-3,3),col:CC[i%CC.length],life:rnd(3.5,5.5),age:0});}
+}
+function rain(){
+  const t=setInterval(()=>{for(let i=0;i<3;i++)conf.push({x:rnd(0,W),y:-20,vx:rnd(-30,30),vy:rnd(40,120),s:rnd(14,28),r:rnd(0,6),vr:rnd(-2,2),col:CC[(Math.random()*CC.length)|0],life:rnd(4,6),age:0});},120);
+  setTimeout(()=>clearInterval(t),3200);
+}
+let last=performance.now();
+function loop(t){
+  const dt=Math.min((t-last)/1000,.05); last=t;
+  c.clearRect(0,0,W,H);
+  c.textAlign='center';c.textBaseline='middle';
+  bg.forEach(h=>{h.y-=h.v*dt*8; h.x+=Math.sin(t/2500+h.s)*.0002; if(h.y<-.05){h.y=1.05;h.x=Math.random();}
+    c.globalAlpha=h.a;c.fillStyle=h.col;c.font=h.s+'px sans-serif';c.fillText('♥',h.x*W,h.y*H);});
+  conf=conf.filter(p=>p.age<p.life);
+  conf.forEach(p=>{p.age+=dt;p.vx*=.985;p.vy=p.vy*.985+260*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.r+=p.vr*dt;
+    c.save();c.translate(p.x,p.y);c.rotate(p.r*.3);c.globalAlpha=Math.max(0,.85*(1-p.age/p.life));
+    c.fillStyle=p.col;c.shadowColor=p.col;c.shadowBlur=9;c.font=p.s+'px sans-serif';c.fillText('♥',0,0);c.restore();});
+  c.globalAlpha=1;
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+/* aim & shoot */
+const bow=document.getElementById('bow'), env=document.getElementById('env'), aim=document.getElementById('aim'), win=document.getElementById('win');
+let ang=0, shooting=false, done=false;
+const center=()=>{const r=bow.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};};
+function aimAt(x,y){
+  const b=center(), dx=x-b.x, dy=Math.min(y-b.y,-20);
+  ang=Math.max(-1.3,Math.min(1.3,Math.atan2(dx,-dy)));
+  bow.style.transform=`rotate(${ang}rad)`;
+}
+function shoot(){
+  if(shooting||done)return; shooting=true; arrS.style.opacity=0;
+  const b=center(), dir={x:Math.sin(ang),y:-Math.cos(ang)}, a=ang;
+  const el=document.createElement('div'); el.className='fly';
+  el.innerHTML=`<svg viewBox="-50 -50 100 100" style="overflow:visible">${ARROW}</svg>`;
+  document.body.appendChild(el);
+  let d=0,prev=performance.now();
+  (function step(t){
+    d+=1300*Math.min((t-prev)/1000,.05); prev=t;
+    const cx=b.x+dir.x*d, cy=b.y+dir.y*d;
+    el.style.transform=`translate(${cx-50}px,${cy-50}px) rotate(${a}rad)`;
+    const tx=cx+dir.x*46, ty=cy+dir.y*46, r=env.getBoundingClientRect();
+    if(tx>r.left-6&&tx<r.right+6&&ty>r.top-6&&ty<r.bottom+6){hit(el,tx,ty);return;}
+    if(tx<-120||tx>W+120||ty<-120){el.remove();shooting=false;arrS.style.opacity=1;return;}
+    requestAnimationFrame(step);
+  })(prev);
+}
+function hit(el,x,y){
+  done=true; burst(x,y,14);
+  env.classList.add('shake');
+  setTimeout(()=>env.classList.add('open'),350);
+  setTimeout(()=>{aim.classList.add('out');el.style.transition='opacity .4s';el.style.opacity=0;},1000);
+  setTimeout(()=>{win.hidden=false;el.remove();},1350);
+}
+addEventListener('pointermove',e=>{if(!done)aimAt(e.clientX,e.clientY);});
+addEventListener('pointerdown',e=>{if(done)return;aimAt(e.clientX,e.clientY);shoot();});
+addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();shoot();}});
+
+/* pertanyaan */
+const yes=document.getElementById('yes'), no=document.getElementById('no'), body=document.getElementById('body');
+let scale=1;
+function dodge(e){
+  if(e){e.preventDefault();e.stopPropagation();}
+  const b=body.getBoundingClientRect(), n=no.getBoundingClientRect();
+  if(!no.classList.contains('free')){
+    no.style.left=(n.left-b.left)+'px';no.style.top=(n.top-b.top)+'px';
+    no.classList.add('free');
+    void no.offsetWidth;
+  }
+  no.style.left=rnd(6,b.width-n.width-6)+'px';
+  no.style.top=rnd(30,b.height-n.height-6)+'px';
+  scale=Math.min(scale+.16,2.3);
+  yes.style.transform=`scale(${scale})`;
+}
+no.addEventListener('pointerenter',dodge);
+no.addEventListener('pointerdown',dodge);
+no.addEventListener('click',dodge);
+yes.addEventListener('pointerdown',e=>e.stopPropagation());
+yes.addEventListener('click',()=>{
+  body.innerHTML=`<p class="t">Yayyy! kamu kesaaa imut lucu sedunia ♡</p>
+  <div class="heart-top">♥</div>
+  <div class="cat">${cat(happy)}</div>
+  <p class="small">I'm really happy you can accept me</p>
+  <span class="sel">KESAAA IMUT LUCU SEDUNIA</span> <span>♥</span>`;
+  const r=win.getBoundingClientRect();
+  burst(r.left+r.width/2,r.top+r.height/2,80);
+  setTimeout(()=>burst(r.left+r.width/2,r.top+r.height/2,45),450);
+  rain();
+});
+</script>
+</body>
+</html>
